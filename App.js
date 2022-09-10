@@ -1,17 +1,230 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Image, Dimensions, Pressable, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Image, Dimensions, Pressable, TouchableOpacity, Alert } from 'react-native';
+
+import Regras from './components/Regras';
+import Escolha from './components/Escolha';
+import Pontuacao from './components/Pontuacao';
+import React from 'react';
+import ImagemJogadores from './assets/jogadores.png';
+import ImagemRegras from './assets/regras.png';
+import ImagemUsuario from './assets/tesoura.png';
+import imagemComputador from './assets/papel.png';
+import Spock from './assets/spock.png';
+import Lagarto from './assets/lagarto.png';
+import Pedra from './assets/pedra.png';
+import Papel from './assets/papel.png';
+import Tesoura from './assets/tesoura.png';
+
 
 var width = Dimensions.get('window').width; //full width
-var height = Dimensions.get('window').height; //full height
+var cont = 0;
+var pontuacaoUsuario = '00';
+var num_pontuacaoUsuario=0;
+var pontuacaoComputador = '00';
+var num_pontuacaoComputador=0;
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <View style={{ width:width, height:60, backgroundColor:'darkblue', flexDirection:'row', justifyContent:'space-between', alignItems:'center', padding:20, marginTop:50 }}>
-      <Pressable style={styles.button}>
+export default class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {imagemRegras:ImagemJogadores,escolhaUsuario:'',imagemUsuario:ImagemUsuario,pontuacaoUsuario:'00',escolhaComputador:'',imagemComputador:imagemComputador,pontuacaoComputador:'00'}
+  }
+  
+  onPress(id) {
+    var imagemRegras='';
+    switch(id) {
+      case 0:
+        if(cont==0){
+          imagemRegras = ImagemRegras;
+          cont = 1;
+        } else{
+          imagemRegras = ImagemJogadores;
+          cont = 0;
+        }
+    }
+
+    this.setState({imagemRegras});
+  }
+
+  onPresss(id) {
+    switch(id) {
+      case 0:
+        pontuacaoUsuario = '00';
+        num_pontuacaoUsuario = 0;
+        pontuacaoComputador = '00';
+        num_pontuacaoComputador = 0;
+    }
+
+    this.setState({pontuacaoUsuario:pontuacaoUsuario, pontuacaoComputador:pontuacaoComputador});
+  }
+
+  jokenpo(escolhaUsuario){
+    var escolhaComputador="";
+
+    var imagemUsuario="";
+    var imagemComputador=""
+
+    const nAleatorio = Math.floor(Math.random() * 5);
+    switch (nAleatorio) {
+      case 0:
+      escolhaComputador = "Spock";break;
+      case 1:
+      escolhaComputador = "Lagarto";break;
+      case 2:
+      escolhaComputador = "Papel";break;
+      case 3:
+      escolhaComputador = "Pedra";break;
+      case 4:
+      escolhaComputador = "Tesoura";break;
+      default:"Error";break;
+ 
+    }
+    var resultado ="";
+     if(escolhaComputador == "Pedra"){
+        if(escolhaUsuario == "Pedra"){
+          resultado= "Empate";
+        }
+        if(escolhaUsuario == "Papel"){
+          resultado = "Usuario Ganhou";
+        }
+        if(escolhaUsuario == "Tesoura"){
+          resultado = "Computador Ganhou";
+        }
+        if(escolhaUsuario == "Spock"){
+          resultado = "Usuario Ganhou";
+        }
+        if(escolhaUsuario == "Lagarto"){
+          resultado = "Computador Ganhou";
+        }
+     }
+     if(escolhaComputador == "Papel"){
+       if(escolhaUsuario == "Pedra"){
+         resultado = "Computador Ganhou";
+       }
+       if(escolhaUsuario == "Papel"){
+         resultado = "Empate";
+       }
+       if(escolhaUsuario == "Tesoura"){
+         resultado = "Usuario Ganhou";
+       }
+       if(escolhaUsuario == "Spock"){
+         resultado = "Computador Ganhou";
+       }
+       if(escolhaUsuario == "Lagarto"){
+         resultado = "Usuario Ganhou";
+       }
+     }
+     if(escolhaComputador == "Tesoura"){
+       if(escolhaUsuario == "Pedra"){
+         resultado = "Usuario Ganhou";
+       }
+       if(escolhaUsuario == "Papel"){
+         resultado = "Computador Ganhou";
+       }
+       if(escolhaUsuario == "Tesoura"){
+         resultado = "Empate";
+       }
+       if(escolhaUsuario == "Lagarto"){
+         resultado = "Computador Ganhou";
+       }
+       if(escolhaUsuario == "Spock"){
+         resultado = "Usuario Ganhou";
+       }
+     }
+     if(escolhaComputador == "Spock"){
+       if(escolhaUsuario == "Pedra"){
+         resultado = "Computador Ganhou";
+       }
+       if(escolhaUsuario == "Papel"){
+         resultado = "Usuario Ganhou";
+       }
+       if(escolhaUsuario == "Tesoura"){
+         resultado = "Computador Ganhou";
+       }
+       if(escolhaUsuario == "Spock"){
+         resultado = "Empate";
+       }
+       if(escolhaUsuario == "Lagarto"){
+         resultado = "Usuario Ganhou";
+       }
+     }
+     if(escolhaComputador == "Lagarto"){
+       if(escolhaUsuario == "Pedra"){
+         resultado = "Usuario Ganhou";
+       }
+       if(escolhaUsuario == "Papel"){
+         resultado = "Computador Ganhou";
+       }
+       if(escolhaUsuario == "Tesoura"){
+         resultado = "Usuario Ganhou";
+       }
+       if(escolhaUsuario == "Spock"){
+         resultado = "Computador Ganhou";
+       }
+       if(escolhaUsuario == "Lagarto"){
+         resultado = "Empate";
+       }
+     }
+
+     if(escolhaUsuario == 'Papel'){
+      imagemUsuario = Papel;
+     }
+     if(escolhaUsuario == 'Pedra'){
+      imagemUsuario = Pedra;
+     }
+     if(escolhaUsuario == 'Spock'){
+      imagemUsuario = Spock;
+     }
+     if(escolhaUsuario == 'Lagarto'){
+      imagemUsuario = Lagarto;
+     }
+     if(escolhaUsuario == 'Tesoura'){
+      imagemUsuario = Tesoura;
+     }
+
+     if(escolhaComputador == 'Papel'){
+      imagemComputador = Papel;
+     }
+     if(escolhaComputador == 'Pedra'){
+      imagemComputador = Pedra;
+     }
+     if(escolhaComputador == 'Spock'){
+      imagemComputador = Spock;
+     }
+     if(escolhaComputador == 'Lagarto'){
+      imagemComputador = Lagarto;
+     }
+     if(escolhaComputador == 'Tesoura'){
+      imagemComputador = Tesoura;
+     }
+
+     if(resultado == 'Usuario Ganhou'){
+      num_pontuacaoUsuario++;
+      pontuacaoUsuario = num_pontuacaoUsuario.toString();
+      if(pontuacaoUsuario<10){
+        pontuacaoUsuario = '0' + pontuacaoUsuario;
+      }
+     }
+     if(resultado == 'Computador Ganhou'){
+      num_pontuacaoComputador++;
+      pontuacaoComputador = num_pontuacaoComputador.toString();
+      if(pontuacaoComputador<10){
+        pontuacaoComputador = '0' + pontuacaoComputador;
+      }
+     } 
+ 
+    this.setState({escolhaUsuario:escolhaUsuario,imagemUsuario:imagemUsuario,pontuacaoUsuario:pontuacaoUsuario,escolhaComputador:escolhaComputador,imagemComputador:imagemComputador,pontuacaoComputador:pontuacaoComputador,resultado:resultado});
+   }
+
+  render() {
+    return (
+      <View style={styles.container}>
+      <View style={{ width:width, height:60, backgroundColor:'#800080', flexDirection:'row', justifyContent:'space-between', alignItems:'center', padding:20, marginTop:50 }}>
+      <Pressable 
+      style={styles.button} 
+      onPress={()=>{this.onPress(0)}}>
         <Text style={styles.text}>GAME</Text>
       </Pressable>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={()=>{this.onPresss(0)}}>
         <Image
           source={require('./assets/botao.png')}
           style={{width:30, height: 30}}
@@ -19,42 +232,38 @@ export default function App() {
       </TouchableOpacity>
       </View>
 
-      <View>
-        <Image
-          source={require('./assets/jogadores.png')}
-          style={{width:width-20, height:300, marginTop: 15, marginBottom: 15}}/>
-      </View>
+      <Regras endereco={this.state.imagemRegras}/>
 
       <View style={{width:width, flexDirection:'row', justifyContent:'space-around', alignItems:'center'}}>
-        <TouchableOpacity >
+        <TouchableOpacity onPress={() => {this.jokenpo('Pedra')}}>
           <Image
             source={require('./assets/pedra.png')}
             style={{width:64, height:64, borderRadius:64/2}}
           />
         </TouchableOpacity>
 
-        <TouchableOpacity >
+        <TouchableOpacity onPress={() => {this.jokenpo('Spock')}}>
           <Image
             source={require('./assets/spock.png')}
             style={{width:64, height:64, borderRadius:64/2}}
           />
         </TouchableOpacity>
 
-        <TouchableOpacity >
+        <TouchableOpacity onPress={() => {this.jokenpo('Tesoura')}}>
           <Image
             source={require('./assets/tesoura.png')}
             style={{width:64, height:64, borderRadius:64/2}}
           />
         </TouchableOpacity>
 
-        <TouchableOpacity >
+        <TouchableOpacity onPress={() => {this.jokenpo('Lagarto')}}>
           <Image
             source={require('./assets/lagarto.png')}
             style={{width:64, height:64, borderRadius:64/2}}
           />
         </TouchableOpacity>
 
-        <TouchableOpacity >
+        <TouchableOpacity onPress={() => {this.jokenpo('Papel')}}>
           <Image
             source={require('./assets/papel.png')}
             style={{width:64, height:64, borderRadius:64/2}}
@@ -69,34 +278,29 @@ export default function App() {
          /> 
 
          <View style={{flexDirection:'row', justifyContent:'space-between', alignItems:'center'}}>
-          <Image
-            source={require('./assets/tesoura.png')}
-            style={{width:100, height:100, borderRadius:100/2}}
-          /> 
+          <Escolha endereco={this.state.imagemUsuario}/>
           <Image
             source={require('./assets/vs.png')}
             style={{width:100, height:64}}
           /> 
-          <Image
-            source={require('./assets/papel.png')}
-            style={{width:100, height:100, borderRadius:100/2}}
-          /> 
+          <Escolha endereco={this.state.imagemComputador}/>
          </View>
 
          <View style={{flexDirection:'row', justifyContent:'space-between', alignItems:'center', marginTop:20}}>
-          <Text style={{marginRight :10, fontSize:50, color:'white', backgroundColor:'darkblue', width:150, height:70, justifyContent:'center', alignItems:'center', textAlign:'center', borderRadius:100}}>00</Text>
-          <Text style={{fontSize:50, color:'white', backgroundColor:'darkblue', width:150, height:70, justifyContent:'center', alignItems:'center', textAlign:'center', borderRadius:100}}>00</Text>
+          <Pontuacao valor={this.state.pontuacaoUsuario}/>
+          <Pontuacao valor={this.state.pontuacaoComputador}/>  
          </View>
       </View>
-      {/* <StatusBar style="auto" /> */}
+      <StatusBar style="auto" />
     </View>
-  );
+    )
+  }
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'blue',
+    backgroundColor: '#993399',
     alignItems: 'center',
     justifyContent: 'center',
   },
