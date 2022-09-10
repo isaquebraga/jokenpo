@@ -291,7 +291,7 @@ export default class App extends React.Component {
           <Pontuacao valor={this.state.pontuacaoComputador}/>  
          </View>
       </View>
-      <View style={{marginTop:5}}>
+      <View style={{marginTop:6}}>
         <Text style={styles.text}> Alexia e Isaque
         </Text>
       </View>
